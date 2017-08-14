@@ -1,0 +1,140 @@
+<resources>
+    <string name="app_name">信鸽</string>
+    <string name="title_hint">呵呵呵</string>
+    <string name="add_todo">添加</string>
+
+    <string name="net_conn_1">当前网络不稳定</string>
+    <string name="net_conn_2">当前网络不可用,请检测您的网络</string>
+
+    <!--我的界面-->
+    <string name="my_pigeon">我的信鸽</string>
+    <string name="my_circle">我的鸽环</string>
+    <string name="pigeon_route">信鸽行程</string>
+    <string name="msg">消息</string>
+    <string name="setting">设置</string>
+    <string name="username">用户名</string>
+    <string name="userid">用户编号：12345</string>
+
+    <!--用户注册-->
+    <string name="user_sex_nan">男</string>
+    <string name="user_sex_nv">女</string>
+    <string name="get_code">获取验证码</string>
+    <string name="get_send_code">请输入短信验证码</string>
+
+    <string name="app_user_regist">用户注册</string>
+    <string name="user_name">请输入昵称</string>
+    <string name="user_phone">请输入手机号</string>
+    <string name="user_email">请绑定邮箱</string>
+    <string name="user_pwd">(输入密码)字符、数字或符号</string>
+    <string name="user_pwd_re">确认密码</string>
+    <string name="old_pwd">旧密码</string>
+    <string name="new_pwd">新密码</string>
+    <string name="confirm_modify">确认修改</string>
+    <string name="user_email_vail">邮箱格式不正确</string>
+    <string name="user_year">养鸽年限为空</string>
+    <string name="user_year_vail">输入年限格式不正确</string>
+    <string name="user_sex">性别</string>
+    <string name="user_birthday">出生年月</string>
+    <string name="dovecote_name">鸽舍名称</string>
+    <string name="club_name">俱乐部名称</string>
+    <string name="union_name">协会</string>
+    <string name="feed_pigeon_year">养鸽年限(年)</string>
+    <string name="required_info">表示必须填的信息</string>
+    <string name="read_agree">我已阅读并同意</string>
+    <string name="user_protocol">《用户协议》</string>
+    <string name="disagree_user_protocol">您还没有同意用户协议</string>
+    <string name="regist_confirm">确认注册</string>
+    <string name="user_name_empty">用户名</string>
+    <string name="dovecote_name_empty">请输入鸽舍名称</string>
+    <string name="user_phone_valid">请输入正确的手机号</string>
+    <string name="user_pwd_vilad">请输入字符、数字或符号</string>
+    <string name="user_pwd_empty">用户密码为空</string>
+    <string name="mac_address_empty">设备地址为空</string>
+    <string name="user_pwd_size">密码至少6位</string>
+    <string name="user_pwd_repwd">两次密码输入不一致</string>
+    <string name="user_sex_select">请选择性别</string>
+    <string name="user_han">请输入正确的名称格式</string>
+    <string name="user_club_siza">俱乐部名称过长,请重新输入</string>
+    <string name="user_uinon_siza">协会名称过长,请重新输入</string>
+    <string name="dovecote_name_size">鸽舍名称过长,请重新输入</string>
+
+
+    <!--我的信鸽、我的鸽环-->
+    <string name="add_pigeon">"赶快点击右上角\"+\"添加吧"</string>
+    <string name="need_add_pigeon">你还没有添加信鸽!</string>
+    <string name="need_add_ring">你还没有添加鸽环!</string>
+    <string name="network_bad">当前网络较差，点击屏幕刷新!</string>
+    <string name="null_route">该信鸽还没有飞行记录</string>
+    <string name="pigeon_mate_no">未匹配</string>
+    <string name="pigeon_mate">已匹配</string>
+    <string name="pigeon_mate_ring">匹配鸽环: </string>
+    <string name="add_ringcode_null">请输入鸽环编号</string>
+    <string name="delete_ringid_no">当前存在鸽环处于匹配状态，不可删除</string>
+    <string name="no_ringid">没有可删除的鸽环</string>
+    <string name="delete_doveid_no">当前存在信鸽处于匹配状态，不可删除</string>
+    <string name="no_doveid">没有可删除的信鸽</string>
+
+    <string name="add_dove">添加信鸽</string>
+    <string name="add_ring">添加鸽环</string>
+    <string name="mate">批量匹配</string>
+
+
+    <string name="delete_dove_code">删除信鸽</string>
+    <string name="confirm_delete_dove_code">确定要删除所选信鸽?</string>
+    <string name="delete_ring_code">删除鸽环</string>
+    <string name="confirm_delete_ring_code">确定要删除所选鸽环?</string>
+    <string name="confirm">确定</string>
+    <string name="cancle">取消</string>
+
+
+    <!--添加信鸽-->
+    <string name="add_pigeon_code_exist">该信鸽编号已经存在,请重新输入</string>
+    <string name="add_pigeon_sex_null">请添加鸽子的性别</string>
+    <string name="add_pigeon_old_null">请添加鸽子的年龄</string>
+    <string name="add_pigeon_color_null">请填写鸽子羽毛的颜色</string>
+    <string name="add_pigeon_color_check">请正确输入鸽子羽毛颜色</string>
+    <string name="add_pigeon_blood_null">请填写鸽子的血统</string>
+    <string name="add_pigeon_blood_check">请正确输入鸽子的血统</string>
+
+
+    <string name="add_pigeon_color">羽毛颜色</string>
+    <string name="add_pigeon_blood">血统</string>
+    <string name="color_tao">桃红纱</string>
+    <string name="add_et">请输入内容</string>
+
+    //鸽环详情界面
+
+    <string name="pigeon_info">信鸽详情</string>
+    <string name="ring_info">鸽环详情</string>
+    <string name="circle_code">鸽环编号</string>
+    <string name="ring_menufacture_date">生产日期</string>
+    <string name="ring_output_address">生产地点</string>
+    <string name="ring_specification">鸽环规格</string>
+    <string name="ring_start_date">使用时间</string>
+    <string name="ring_validity_date">有效期</string>
+    <string name="ring_service_term">服务期限</string>
+    <string name="ring_status">鸽环状态</string>
+    <string name="start_status">开机状态</string>
+    <string name="position_mode">定位频率</string>
+    <string name="reported_freq">报点频率</string>
+
+    <string name="schedule_power_on">定时开机</string>
+    <string name="schedule_power_off">定时关机</string>
+    <string name="mate_pigeon_ring">绑定信鸽</string>
+
+
+
+    <string name="one_min_once">1分钟/次</string>
+    <string name="two_min_once">2分钟/次</string>
+    <string name="third_min_once">3分钟/次</string>
+    <string name="four_min_once">4分钟/次</string>
+    <string name="five_min_once">5分钟/次</string>
+    <string name="off_time_state">关机</string>
+    <string name="on_time_state">开机</string>
+
+
+    <!--轨迹界面-->
+    <string name="start_fly">开始飞行</string>
+    <string name="end_fly">结束飞行</string>
+    <string name="no_mate_dove">还没有匹配信鸽</string>
+</resources>

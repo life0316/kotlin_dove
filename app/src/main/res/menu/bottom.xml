@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_android"
+        android:icon="@drawable/tab_icon_pigeon"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="信鸽"/>
+
+    <item
+
+        android:id="@+id/menu_ios"
+        android:icon="@drawable/tab_icon_trajectory"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="轨迹"/>
+    <item
+
+        android:id="@+id/menu_girl"
+        android:icon="@drawable/tab_icon_pigeon_circle"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="鸽圈"
+        />
+    <item
+
+        android:id="@+id/menu_about"
+        android:icon="@drawable/tab_icon_home"
+        android:enabled="true"
+        app:showAsAction="ifRoom"
+        android:title="我的"
+        />
+</menu>
