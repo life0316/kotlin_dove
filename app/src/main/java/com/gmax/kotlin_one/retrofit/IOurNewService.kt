@@ -14,6 +14,7 @@ import retrofit2.http.PartMap
 import retrofit2.http.Streaming
 import retrofit2.http.Url
 import rx.Observable
+import java.util.HashMap
 
 interface IOurNewService {
 
@@ -60,10 +61,7 @@ interface IOurNewService {
     //3.7上传图片
     @Multipart
     @POST("gehuan/")
-    fun getUploadPic(@PartMap params: Map<String, RequestBody>):
-            //    @FormUrlEncoded
-            //    Observable<UploadImageBean> getUploadPic(@PartMap Map<String, RequestBody> params, @Part("file")  MultipartBody.Part file);
-            Observable<UploadImageBean>
+    fun getUploadPic(@PartMap params: HashMap<String, RequestBody>): Observable<UploadImageBean>
 
     //3.8.修改用户信息
     @POST("gehuan/")

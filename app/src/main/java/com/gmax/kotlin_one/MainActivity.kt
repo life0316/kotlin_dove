@@ -3,14 +3,16 @@ package com.gmax.kotlin_one
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.FragmentTransaction
+import android.util.Log
+import android.view.KeyEvent
 import com.gmax.kotlin_one.base.BaseBindingActivity
-import com.gmax.kotlin_one.bean.UserInfoInner
 import com.gmax.kotlin_one.databinding.ActivityMainBinding
 import com.gmax.kotlin_one.fragments.DoveCircleFragment
 import com.gmax.kotlin_one.fragments.DoveFragment
 import com.gmax.kotlin_one.fragments.HomeFragment
-import com.gmax.kotlin_one.fragments.PigeonFragment
 import com.gmax.kotlin_one.modules.trail.TrailFragment
+import com.gmax.kotlin_one.utils.RxBus
+import com.gmax.kotlin_one.utils.SpUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseBindingActivity<ActivityMainBinding>(){
@@ -19,6 +21,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(){
     internal var mTab2: TrailFragment? = null
     internal var mTab3: DoveCircleFragment? = null
     internal var mTab4: HomeFragment? = null
+    internal var exitTime:Long = 0
 
     override fun getMethod(): String? {
         return ""
@@ -47,13 +50,10 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(){
 
     private fun setSelection(position: Int) {
 
-//        mRxBus.post("clickRadio", position)
-//
-//        currentPos = position
+        SpUtils.putInt(this,Constant.CLICK_NUM,position)
         val fm = supportFragmentManager
         val ft = fm.beginTransaction()
         hideAllFragments(ft)
-
         when (position) {
             0 -> if (mTab1 == null) {
                 mTab1 = DoveFragment.newInstance("信鸽")
@@ -97,5 +97,32 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(){
         if (mTab4 != null) {
             ft.hide(mTab4)
         }
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
+
+        val isExit = SpUtils.getBoolean(this,Constant.MAIN_EXIT,true)
+        if (isExit) {
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_DOWN) {
+                if (System.currentTimeMillis() - exitTime > 2000) {
+                    showToast(getString(R.string.once_exit))
+                    exitTime = System.currentTimeMillis()
+                } else {
+                    finish()
+                    System.exit(0)
+                }
+                return true
+            }
+        }else{
+
+            val other:String = SpUtils.getString(this,Constant.OTHER_NOT_EXIT)
+            Log.e("exit","dove----3---"+other)
+            if (other != ""){
+                Log.e("exit","dove----4---"+other)
+                RxBus.getInstance().post("exit",other)
+            }
+            return false
+        }
+        return super.onKeyDown(keyCode, event)
     }
 }

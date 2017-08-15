@@ -8,6 +8,10 @@ class Constant {
         val BASE_OUR_URL_1 : String = "http://111.231.54.111/"
         val BASE_OUR_URL_2 : String = "http://118.178.227.194/"
 
+        val MAIN_EXIT:String = "exit"
+        val OTHER_NOT_EXIT:String = "not_exit"
+        val CLICK_NUM:String = "click_num"
+
         val CHANGE_USER = "change_user"
 
         val USER_TOKEN : String = "user_token"

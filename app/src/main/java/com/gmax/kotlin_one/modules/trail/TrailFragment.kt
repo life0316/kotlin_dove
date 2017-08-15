@@ -11,11 +11,13 @@ import com.amap.api.location.AMapLocationClient
 import com.amap.api.location.AMapLocationClientOption
 import com.amap.api.maps.*
 import com.amap.api.maps.model.MyLocationStyle
+import com.gmax.kotlin_one.Constant
 import com.gmax.kotlin_one.R
 import com.gmax.kotlin_one.base.BaseBindingActivity
 import com.gmax.kotlin_one.base.BaseBindingFragment
 import com.gmax.kotlin_one.databinding.FragmentTrailBinding
 import com.gmax.kotlin_one.showToast
+import com.gmax.kotlin_one.utils.SpUtils
 import kotlinx.android.synthetic.main.custom_drawer_layout.*
 import kotlinx.android.synthetic.main.custom_toolbar.*
 
@@ -88,6 +90,10 @@ class TrailFragment : BaseBindingFragment<FragmentTrailBinding>(){
     override fun onResume() {
         super.onResume()
         tral_map.onResume()
+        Log.e("dfaf","Trail-onResume")
+        val currentNum = SpUtils.getInt(activity, Constant.CLICK_NUM)
+
+
     }
 
     override fun onPause() {

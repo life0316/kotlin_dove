@@ -5,6 +5,7 @@
 
     <string name="net_conn_1">当前网络不稳定</string>
     <string name="net_conn_2">当前网络不可用,请检测您的网络</string>
+    <string name="once_exit">再按一次退出信鸽</string>
 
     <!--我的界面-->
     <string name="my_pigeon">我的信鸽</string>
@@ -137,4 +138,10 @@
     <string name="start_fly">开始飞行</string>
     <string name="end_fly">结束飞行</string>
     <string name="no_mate_dove">还没有匹配信鸽</string>
+
+
+
+
+    <string name="user_code_home">用户编号:</string>
+    <string name="user_update">帐号管理</string>
 </resources>

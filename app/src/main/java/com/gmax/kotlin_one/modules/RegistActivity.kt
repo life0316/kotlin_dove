@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.gmax.kotlin_one.*
 import com.gmax.kotlin_one.base.BaseBindingActivity
+import com.gmax.kotlin_one.base.BaseLoginView
 import com.gmax.kotlin_one.bean.UserInfoInner
 import com.gmax.kotlin_one.bean.UserInnerData
 import com.gmax.kotlin_one.common.ApiModule
@@ -35,7 +36,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class RegistActivity : BaseBindingActivity<ActivityRegistBinding>(), LoginContract.View, CodesContract.View {
+class RegistActivity : BaseLoginView<ActivityRegistBinding>(){
 
     internal var mHandler : Handler? = null
     var methodType:Int = MethodType.METHOD_TYPE_REGISTER
@@ -345,9 +346,6 @@ class RegistActivity : BaseBindingActivity<ActivityRegistBinding>(), LoginContra
         val intent: Intent = Intent(this@RegistActivity, MainActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    override fun setUserData(data: UserInfoInner) {
     }
 
     override fun getMethod(): String {

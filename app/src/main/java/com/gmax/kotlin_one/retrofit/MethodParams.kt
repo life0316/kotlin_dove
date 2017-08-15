@@ -18,6 +18,9 @@ class MethodParams {
         val PARAMS_GENDER : String = "gender"
         val PARAMS_NICKNAME : String = "nickname"
         val PARAMS_BIRTHDAY : String = "birthday"
+        val PARAMS_HEADPIC : String = "headpic"
+        val PARAMS_LOFTNAME : String = "loftname"
+        val PARAMS_EXPER : String = "experience"
         val PARAMS_VER_CODE : String = "ver_code"
 
         val PARAMS_AGE : String = "age"

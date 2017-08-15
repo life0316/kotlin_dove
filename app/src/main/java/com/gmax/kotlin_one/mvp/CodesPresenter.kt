@@ -9,20 +9,17 @@ import rx.Observable
 import rx.android.schedulers.AndroidSchedulers
 import javax.inject.Inject
 
-/**
- * Created by Administrator on 2017\8\2 0002.
- */
 class CodesPresenter
     @Inject constructor(private val mModel:CodesModel
             ,private val mView:CodesContract.View) : CodesContract.Presenter,BasePresenter(){
     override fun getData(map: Map<String, String>, type: Int) {
         addSubscription(mModel.getData(map,type).observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    res ->
+                    (code, msg) ->
 
-                    Log.e("fafaf",(res.code).toString() + "--------code")
-                    Log.e("fafaf",(res.msg) + "--------msg")
-                    if (res.code == 200){
+                    Log.e("fafaf",(code).toString() + "--------code")
+                    Log.e("fafaf",(msg) + "--------msg")
+                    if (code == 200){
                         mView.successToDo()
                     }else{
                         //  TODO 最好是给个错误提示
@@ -41,6 +38,7 @@ class CodesModel
 
             MethodType.METHOD_TYPE_DOVE_ADD -> return api.addDove(map)
             MethodType.METHOD_TYPE_RING_ADD -> return api.addRing(map)
+            MethodType.METHOD_TYPE_USER_UPDATE -> return api.getUpdateInfo(map)
             else -> return api.addDove(map)
         }
     }

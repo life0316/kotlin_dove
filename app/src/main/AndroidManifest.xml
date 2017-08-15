@@ -110,6 +110,7 @@
         <activity android:name=".modules.dove.AddRingActivity" android:screenOrientation="portrait"/>
         <activity android:name=".modules.dove.DoveInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".modules.dove.RingInfoActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".modules.home.PersonalActivity" android:screenOrientation="portrait"/>
 
     </application>
 

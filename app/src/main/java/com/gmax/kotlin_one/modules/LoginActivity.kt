@@ -12,6 +12,7 @@ import com.gmax.kotlin_one.Constant
 import com.gmax.kotlin_one.MainActivity
 import com.gmax.kotlin_one.R
 import com.gmax.kotlin_one.base.BaseBindingActivity
+import com.gmax.kotlin_one.base.BaseLoginView
 import com.gmax.kotlin_one.bean.UserInfoInner
 import com.gmax.kotlin_one.bean.UserInnerData
 import com.gmax.kotlin_one.common.ApiModule
@@ -32,11 +33,7 @@ import org.jetbrains.anko.backgroundResource
 import java.util.HashMap
 import javax.inject.Inject
 
-
-class LoginActivity : BaseBindingActivity<ActivityLoginBinding>(), LoginContract.View,CodesContract.View{
-    override fun successToDo() {
-
-    }
+class LoginActivity : BaseLoginView<ActivityLoginBinding>(){
 
     var methodType:Int = MethodType.METHOD_TYPE_LOGIN
     internal var editPwd: String? = null
@@ -153,11 +150,9 @@ class LoginActivity : BaseBindingActivity<ActivityLoginBinding>(), LoginContract
 
         hideProgress()
         val intent:Intent = Intent(this@LoginActivity, MainActivity::class.java)
+        SpUtils.putBoolean(this,Constant.MAIN_EXIT,true)
         startActivity(intent)
         finish()
-    }
-    override fun setUserData(data: UserInfoInner) {
-
     }
 
     override fun getMethod(): String {

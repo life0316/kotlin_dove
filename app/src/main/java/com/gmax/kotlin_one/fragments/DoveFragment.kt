@@ -45,16 +45,21 @@ class DoveFragment : BaseTabFragment() {
 
     override fun initView() {
 
-        toolbar.setTitle("")
-        title.setText("信鸽")
-        searchTv.setVisibility(View.GONE)
-        fragment_base_add.setVisibility(View.GONE)
-        base_add.setVisibility(View.VISIBLE)
+        toolbar.title = ""
+        title.text = "信鸽"
+        searchTv.visibility = View.GONE
+        fragment_base_add.visibility = View.GONE
+        base_add.visibility = View.VISIBLE
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         base_add.setOnClickListener {
             v ->  showWindow(v)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("dfaf","Dove-onResume")
     }
 
     private fun showWindow(v:View) {

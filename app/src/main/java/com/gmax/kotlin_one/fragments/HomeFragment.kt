@@ -1,8 +1,12 @@
 package com.gmax.kotlin_one.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
@@ -10,27 +14,26 @@ import com.bumptech.glide.request.animation.GlideAnimation
 import com.bumptech.glide.request.target.SimpleTarget
 import com.gmax.kotlin_one.Constant
 import com.gmax.kotlin_one.R
-import com.gmax.kotlin_one.base.BaseBindingFragment
+import com.gmax.kotlin_one.base.BaseUserinfoF
 import com.gmax.kotlin_one.bean.UserInfoInner
-import com.gmax.kotlin_one.bean.UserInnerData
 import com.gmax.kotlin_one.common.ApiModule
 import com.gmax.kotlin_one.databinding.FragmentHomeBinding
 import com.gmax.kotlin_one.getApiCompoent
 import com.gmax.kotlin_one.inject.DaggerLoginComponent
 import com.gmax.kotlin_one.inject.LoginModule
-import com.gmax.kotlin_one.mvp.CodesContract
-import com.gmax.kotlin_one.mvp.LoginContract
+import com.gmax.kotlin_one.modules.home.PersonalActivity
 import com.gmax.kotlin_one.mvp.LoginPresenter
 import com.gmax.kotlin_one.retrofit.MethodConstant
 import com.gmax.kotlin_one.retrofit.MethodParams
 import com.gmax.kotlin_one.retrofit.MethodType
 import com.gmax.kotlin_one.utils.SpUtils
+import kotlinx.android.synthetic.main.activity_personal.*
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.ByteArrayInputStream
 import java.util.HashMap
 import javax.inject.Inject
 
-class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),LoginContract.View,CodesContract.View {
-
+class HomeFragment : BaseUserinfoF<FragmentHomeBinding>(){
 
     companion object{
         fun newInstance(content: String): HomeFragment {
@@ -48,10 +51,18 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),LoginContract.Vi
     override fun onResume() {
         super.onResume()
 
-        if (isLoad) {
+        Log.e("dfaf","home-onResume")
+
+        val currentNum = SpUtils.getInt(activity,Constant.CLICK_NUM)
+        if (isLoad and (currentNum == 3)) {
             mPresenter.getData(getParaMap(),MethodType.METHOD_TYPE_USER_DETAIL,2)
             isLoad = false
+        }else{
+            if (SpUtils.getBoolean(activity,Constant.CHANGE_USER)){
+                changInfo()
+            }
         }
+        SpUtils.putBoolean(activity,Constant.CHANGE_USER,false)
     }
 
     override fun initView() {
@@ -59,28 +70,10 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),LoginContract.Vi
                 .apiCompoent(activity.getApiCompoent())
                 .apiModule(ApiModule(activity))
                 .loginModule(LoginModule(this,this)).build().inject(this)
-
-        home_civ.setOnClickListener {
-//            val intent = Intent(activity, PersonalActivity::class.java)
-//            intent.putExtra(Constant.USER_INFO, userInfo)
-//            startActivityForResult(intent,100)
-
-        }
     }
 
     override fun createDataBinding(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): FragmentHomeBinding {
         return FragmentHomeBinding.inflate(inflater,container,false)
-    }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == 100) {
-            if (data!!.getBooleanExtra(Constant.CHANGE_USER,false)) {
-                data.getParcelableExtra<UserInfoInner>(Constant.USER_INFO)
-            }
-        }
     }
 
     override fun getMethod(): String {
@@ -100,6 +93,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),LoginContract.Vi
         return map
     }
 
+    @SuppressLint("SetTextI18n")
     override fun setUserData(data: UserInfoInner) {
         SpUtils.putString(activity, Constant.USER_PHONE,data.telephone)
         SpUtils.putString(activity, Constant.NICK_NAME,data.nickname)
@@ -113,8 +107,7 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),LoginContract.Vi
 
         hideProgress()
         home_username.text = data.nickname
-        home_userid.text = "用户编号:${data.userid}"
-
+        home_userid.text = getString(R.string.user_code_home)+data.userid
         if (data.headpic.startsWith("http")) {
             Glide.with(context)
                     .load(data.headpic)
@@ -126,12 +119,53 @@ class HomeFragment : BaseBindingFragment<FragmentHomeBinding>(),LoginContract.Vi
                         }
                     })
         }
+        if(data.nickname == null) data.nickname = ""
+        if(data.gender == null) data.gender = "1"
+        if(data.experience == null) data.experience = "1"
+        if(data.loftname == null) data.loftname = ""
+
+        userInfo = UserInfoInner(data.age,data.userid,data.nickname,data.headpic,data.gender,data.experience,data.loftname,data.telephone,"2017-08-14")
+
+        home_civ.setOnClickListener {
+            if (userInfo != null) {
+                val intent = Intent(activity, PersonalActivity::class.java)
+                intent.putExtra(Constant.USER_INFO, userInfo)
+                startActivity(intent)
+            }
+        }
     }
 
-    override fun setData(data: UserInnerData) {
+    fun changInfo(){
+        userInfo!!.nickname = SpUtils.getString(activity, Constant.NICK_NAME)
+        userInfo!!.loftname = SpUtils.getString(activity, Constant.USER_DOVECOTE)
+        val userHeadpic = SpUtils.getString(activity, Constant.USER_HEADPIC)
+        SpUtils.getString(activity, Constant.USER_AGE)
+        SpUtils.getString(activity, Constant.USER_BIRTH)
+        userInfo!!.gender = SpUtils.getString(activity, Constant.USER_SEX)
+        userInfo!!.experience = SpUtils.getString(activity, Constant.USER_YEAR)
 
-    }
-    override fun successToDo() {
+        if ("" != userHeadpic) {
 
+            if (userHeadpic.startsWith("http")) {
+                Glide.with(this)
+                        .load(userHeadpic)
+                        .asBitmap()
+                        .placeholder(R.mipmap.btn_img_photo_default)
+                        .error(R.mipmap.btn_img_photo_default)
+                        .into(object : SimpleTarget<Bitmap>() {
+                            override fun onResourceReady(resource: Bitmap, glideAnimation: GlideAnimation<in Bitmap>) {
+                                home_civ.setImageBitmap(resource)
+                            }
+                        })
+            } else {
+                if (userHeadpic != "") {
+                    val byteArray = Base64.decode(userHeadpic, Base64.DEFAULT)
+                    val byteArrayInputStream = ByteArrayInputStream(byteArray)
+                    //第三步:利用ByteArrayInputStream生成Bitmap
+                    val bitmap = BitmapFactory.decodeStream(byteArrayInputStream)
+                    home_civ.setImageBitmap(bitmap)
+                }
+            }
+        }
     }
 }

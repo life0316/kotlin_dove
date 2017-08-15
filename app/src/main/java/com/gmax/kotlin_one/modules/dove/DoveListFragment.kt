@@ -5,20 +5,19 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.gmax.kotlin_one.R
+import com.gmax.kotlin_one.*
 import com.gmax.kotlin_one.adapter.DoveAdapter
 import com.gmax.kotlin_one.base.BaseBindingFragment
 import com.gmax.kotlin_one.bean.InnerDoveData
 import com.gmax.kotlin_one.common.ApiModule
 import com.gmax.kotlin_one.common.CommentListener
 import com.gmax.kotlin_one.databinding.SmartRefrashBinding
-import com.gmax.kotlin_one.getApiCompoent
 import com.gmax.kotlin_one.inject.DaggerDoveComponent
 import com.gmax.kotlin_one.inject.DoveModule
-import com.gmax.kotlin_one.isNetworkConnected
 import com.gmax.kotlin_one.modules.dove.DoveInfoActivity
 import com.gmax.kotlin_one.mvp.CodesContract
 import com.gmax.kotlin_one.mvp.CodesPresenter
@@ -27,12 +26,14 @@ import com.gmax.kotlin_one.mvp.DovePresenter
 import com.gmax.kotlin_one.retrofit.MethodConstant
 import com.gmax.kotlin_one.retrofit.MethodParams
 import com.gmax.kotlin_one.retrofit.MethodType
-import com.gmax.kotlin_one.showToast
+import com.gmax.kotlin_one.utils.RxBus
+import com.gmax.kotlin_one.utils.SpUtils
 import com.gmax.kotlin_one.widget.CustomDialog
+import kotlinx.android.synthetic.main.fragment_base_tab.*
 import kotlinx.android.synthetic.main.smart_refrash.*
-import java.util.ArrayList
-import java.util.HashMap
 import javax.inject.Inject
+import rx.Observable
+import rx.functions.Action1
 
 class DoveListFragment : BaseBindingFragment<SmartRefrashBinding>(), DoveContract.View,CodesContract.View{
 
@@ -41,7 +42,7 @@ class DoveListFragment : BaseBindingFragment<SmartRefrashBinding>(), DoveContrac
     @Inject lateinit var mDovePresenter: DovePresenter
     @Inject lateinit var mCodePresenter: CodesPresenter
     @Inject lateinit var mDoveAdapter: DoveAdapter
-
+    @Inject lateinit var mRxbus: RxBus
 
     var isLoad:Boolean = true
     internal var longClickTag1: Boolean = false
@@ -51,7 +52,9 @@ class DoveListFragment : BaseBindingFragment<SmartRefrashBinding>(), DoveContrac
     private var mateList: MutableList<String>? =  ArrayList()
     var numMap: MutableMap<String, Boolean> = HashMap()
 
+
     internal var dialog: CustomDialog? = null
+    internal var exitOb:Observable<String>? = null
 
     override fun createDataBinding(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): SmartRefrashBinding {
         return SmartRefrashBinding.inflate(inflater,container,false)
@@ -137,6 +140,7 @@ class DoveListFragment : BaseBindingFragment<SmartRefrashBinding>(), DoveContrac
                 if (!longClickTag) {
 
 //                    mRxBus.post("cancle", 100)
+                    mRxbus.post("cancle",true)
 
                     //长按事件
                     mDoveAdapter.setShowBox()
@@ -146,7 +150,8 @@ class DoveListFragment : BaseBindingFragment<SmartRefrashBinding>(), DoveContrac
                     mypigeon_select.visibility = View.VISIBLE
                     refreshLayout.isEnableRefresh = false
                     mDoveAdapter.setLongClickTag(true)
-//                    mRxBus.post("exit", 10)
+                    SpUtils.putBoolean(activity, Constant.MAIN_EXIT,false)
+                    SpUtils.putString(activity,Constant.OTHER_NOT_EXIT,"dove")
                 }
                 return true
             }
@@ -197,6 +202,25 @@ class DoveListFragment : BaseBindingFragment<SmartRefrashBinding>(), DoveContrac
                 activity.showToast(getString(R.string.no_doveid))
             }
         }
+
+        exitOb = mRxbus.register("exit",String::class.java)
+
+        exitOb!!.subscribe({
+            exit ->
+            Log.e("exit","dove------1")
+            if (exit == "dove"){
+                Log.e("exit","dove----2")
+                mypigeon_select.visibility = View.GONE
+                select_cb.isChecked = false
+                mDoveAdapter.isshowBox = false
+                mDoveAdapter.setLongClickTag(false)
+                mDoveAdapter.notifyDataSetChanged()
+                this.longClickTag1 = false
+                SpUtils.putBoolean(activity, Constant.MAIN_EXIT,true)
+                SpUtils.putString(activity,Constant.OTHER_NOT_EXIT,"")
+                mRxbus.post("cancle",false)
+            }
+        })
     }
     fun getParaMap(): Map<String, String> {
 
@@ -259,11 +283,12 @@ class DoveListFragment : BaseBindingFragment<SmartRefrashBinding>(), DoveContrac
         doveBeans.clear()
         mateList!!.clear()
         refreshLayout.finishRefresh(false)
-        myring_select.visibility = View.GONE
-        myring_select_cb.isChecked = false
+        mypigeon_select.visibility = View.GONE
+        select_cb.isChecked = false
         mDoveAdapter.isshowBox = false
         mDoveAdapter.setLongClickTag(false)
         this.longClickTag1 = false
+        mRxbus.post("cancle",false)
 
         if (doveData.isNotEmpty()) {
 
@@ -286,5 +311,10 @@ class DoveListFragment : BaseBindingFragment<SmartRefrashBinding>(), DoveContrac
 //            mRxBus.post("cancle", 200)
 //            mPigeonCodes.clear()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mRxbus.unregister("exit", exitOb!!)
     }
 }
