@@ -7,6 +7,11 @@
     <string name="net_conn_2">当前网络不可用,请检测您的网络</string>
     <string name="once_exit">再按一次退出信鸽</string>
 
+    <string name="main_dove">信鸽</string>
+    <string name="main_trail">轨迹</string>
+    <string name="main_circle">鸽圈</string>
+    <string name="main_mine">我的</string>
+
     <!--我的界面-->
     <string name="my_pigeon">我的信鸽</string>
     <string name="my_circle">我的鸽环</string>
@@ -139,9 +144,15 @@
     <string name="end_fly">结束飞行</string>
     <string name="no_mate_dove">还没有匹配信鸽</string>
 
-
+    <!--鸽圈-->
+    <string name="share_circle">转发</string>
+    <string name="fab_circle">赞</string>
+    <string name="comment_circle">评论</string>
 
 
     <string name="user_code_home">用户编号:</string>
     <string name="user_update">帐号管理</string>
+
+
+    <string name="release_circle">发布动态</string>
 </resources>

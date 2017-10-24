@@ -2,6 +2,7 @@ package com.gmax.kotlin_one
 
 import android.app.Application
 import android.content.Context
+import android.support.multidex.MultiDex
 import com.gmax.kotlin_one.common.ApiCompoent
 import com.gmax.kotlin_one.common.ApiModule
 import com.gmax.kotlin_one.common.DaggerApiCompoent
@@ -29,8 +30,8 @@ class App : Application(){
                 .build().inject(this)
     }
 
-//    override fun attachBaseContext(base: Context) {
-//        super.attachBaseContext(base)
-//        MultiDex.install(this)
-//    }
+    override fun attachBaseContext(base: Context) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
+    }
 }

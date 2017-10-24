@@ -3,7 +3,6 @@ package com.gmax.kotlin_one
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.FragmentTransaction
-import android.util.Log
 import android.view.KeyEvent
 import com.gmax.kotlin_one.base.BaseBindingActivity
 import com.gmax.kotlin_one.databinding.ActivityMainBinding
@@ -41,9 +40,7 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(){
             setSelection(tab)
         }
     }
-
     override fun createDataBinding(savedInstanceState: Bundle?): ActivityMainBinding {
-
         return DataBindingUtil.setContentView(this,R.layout.activity_main)
     }
 
@@ -56,25 +53,25 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(){
         hideAllFragments(ft)
         when (position) {
             0 -> if (mTab1 == null) {
-                mTab1 = DoveFragment.newInstance("信鸽")
+                mTab1 = DoveFragment.newInstance(getString(R.string.main_dove))
                 ft.add(R.id.act_main_cvp, mTab1)
             } else {
                 ft.show(mTab1)
             }
             1 -> if (mTab2 == null) {
-                mTab2 = TrailFragment.newInstance("轨迹")
+                mTab2 = TrailFragment.newInstance(getString(R.string.main_trail))
                 ft.add(R.id.act_main_cvp, mTab2)
             } else {
                 ft.show(mTab2)
             }
             2 -> if (mTab3 == null) {
-                mTab3 = DoveCircleFragment.newInstance("鸽圈")
+                mTab3 = DoveCircleFragment.newInstance(getString(R.string.main_circle))
                 ft.add(R.id.act_main_cvp, mTab3)
             } else {
                 ft.show(mTab3)
             }
             3 -> if (mTab4 == null) {
-                mTab4 = HomeFragment.newInstance("我的")
+                mTab4 = HomeFragment.newInstance(getString(R.string.main_mine))
                 ft.add(R.id.act_main_cvp, mTab4)
             } else {
                 ft.show(mTab4)
@@ -114,12 +111,9 @@ class MainActivity : BaseBindingActivity<ActivityMainBinding>(){
                 return true
             }
         }else{
-
             val other:String = SpUtils.getString(this,Constant.OTHER_NOT_EXIT)
-            Log.e("exit","dove----3---"+other)
             if (other != ""){
-                Log.e("exit","dove----4---"+other)
-                RxBus.getInstance().post("exit",other)
+                RxBus.getInstance().post(Constant.MAIN_EXIT,other)
             }
             return false
         }

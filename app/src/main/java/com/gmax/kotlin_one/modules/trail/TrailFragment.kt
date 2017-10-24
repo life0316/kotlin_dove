@@ -91,7 +91,7 @@ class TrailFragment : BaseBindingFragment<FragmentTrailBinding>(){
         super.onResume()
         tral_map.onResume()
         Log.e("dfaf","Trail-onResume")
-        val currentNum = SpUtils.getInt(activity, Constant.CLICK_NUM)
+//        val currentNum = SpUtils.getInt(activity, Constant.CLICK_NUM)
 
 
     }

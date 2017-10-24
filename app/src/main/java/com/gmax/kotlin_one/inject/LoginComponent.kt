@@ -21,8 +21,6 @@ interface LoginComponent {
 
 @Module(includes = arrayOf(ApiModule::class))
 class LoginModule(private val view: LoginContract.View,private val codeView: CodesContract.View){
-
     @Provides fun getView() = view
-
     @Provides fun getCodesView() = codeView
 }

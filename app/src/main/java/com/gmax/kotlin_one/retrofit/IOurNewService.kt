@@ -181,20 +181,20 @@ interface IOurNewService {
     @FormUrlEncoded
     fun shareCircle(@FieldMap map: Map<String, String>): Observable<OurCode>
 
-    //3.30 获取指定好友的朋友圈消息
-    //    @POST("gehuan/")
-    //    @FormUrlEncoded
-    //    Observable<CircleBean> getSingleFriendCircles(@FieldMap Map<String, String> map);
+//    3.30 获取指定好友的朋友圈消息
+    @POST("gehuan/")
+    @FormUrlEncoded
+   fun getSingleFriendCircles(@FieldMap map:Map<String, String>): Observable<OurListBean<CircleBean>>
 
-    //3.31 获取好友的朋友圈消息
-    //    @POST("gehuan/")
-    //    @FormUrlEncoded
-    //    Observable<CircleBean> getFriendCircles(@FieldMap Map<String, String> map);
+//    3.31 获取好友的朋友圈消息
+    @POST("gehuan/")
+    @FormUrlEncoded
+    fun getFriendCircles(@FieldMap map:Map<String, String>) : Observable<OurListBean<CircleBean>>
 
-    //3.31 获取所有朋友圈消息
-    //    @POST("gehuan/")
-    //    @FormUrlEncoded
-    //    Observable<CircleBean> getAllCircles(@FieldMap Map<String, String> map);
+    //    3.31 获取所有朋友圈消息
+    @POST("gehuan/")
+    @FormUrlEncoded
+    fun getAllCircles(@FieldMap map:Map<String, String>) : Observable<OurListBean<CircleBean>>
 
     // 3.32.删除指定一条朋友圈消息
     @POST("gehuan/")
@@ -263,9 +263,9 @@ interface IOurNewService {
     //    Observable<PlayerBean> getPlayerInfo(@FieldMap Map<String, String> map);
 
 
-    //3.40 获取单条朋友圈详情
-    //    @POST("gehuan/")
-    //    @FormUrlEncoded
-    //    Observable<EachCircleBean> getCircleDetail(@FieldMap Map<String, String> map);
+//    3.40 获取单条朋友圈详情
+        @POST("gehuan/")
+        @FormUrlEncoded
+       fun getCircleDetail(@FieldMap  map:Map<String, String>): Observable<OurDataBean<CircleBean>>
 
 }

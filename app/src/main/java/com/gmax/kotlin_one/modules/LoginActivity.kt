@@ -113,7 +113,6 @@ class LoginActivity : BaseLoginView<ActivityLoginBinding>(){
         if ("" == mUserName  && "" == mPwd ) {
             loginbtn.backgroundResource = R.drawable.btn_pigeon_bg2
             loginbtn.isEnabled = false
-
         } else {
             loginbtn.backgroundResource = R.drawable.btn_pigeon_bg
             loginbtn.isEnabled = true
@@ -144,10 +143,8 @@ class LoginActivity : BaseLoginView<ActivityLoginBinding>(){
     }
 
     override fun setData(data: UserInnerData) {
-
         SpUtils.putString(this,Constant.USER_TOKEN,data.token)
         SpUtils.putString(this, Constant.USER_OBJ_ID,data.userid)
-
         hideProgress()
         val intent:Intent = Intent(this@LoginActivity, MainActivity::class.java)
         SpUtils.putBoolean(this,Constant.MAIN_EXIT,true)
@@ -157,7 +154,6 @@ class LoginActivity : BaseLoginView<ActivityLoginBinding>(){
 
     override fun getMethod(): String {
         var method:String? = MethodConstant.LOGIN
-
         when(methodType){
             MethodType.METHOD_TYPE_LOGIN -> method = MethodConstant.LOGIN
             MethodType.METHOD_TYPE_USER_DETAIL -> method = MethodConstant.USER_INFO_DETAIL
@@ -172,11 +168,9 @@ class LoginActivity : BaseLoginView<ActivityLoginBinding>(){
         map.put(MethodParams.PARAMS_SIGN, getSign())
         map.put(MethodParams.PARAMS_TIME, getTime())
         map.put(MethodParams.PARAMS_VERSION, getVersion())
-
         when (methodType) {
             MethodType.METHOD_TYPE_LOGIN -> {
                 map.put(MethodParams.PARAMS_TELEPHONE, login_username.text.toString().trim())
-
                 map.put(MethodParams.PARAMS_PASSWORD,MD5Tools.MD5(login_password.text.toString().trim()))
             }
             MethodType.METHOD_TYPE_USER_DETAIL -> {

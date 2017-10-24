@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.PopupWindow
 import com.gmax.kotlin_one.R
@@ -15,13 +16,12 @@ import com.gmax.kotlin_one.base.BaseTabFragment
 import com.gmax.kotlin_one.base.TabAdapter
 import com.gmax.kotlin_one.modules.dove.AddDoveActivity
 import com.gmax.kotlin_one.modules.dove.AddRingActivity
+import com.gmax.kotlin_one.modules.dove.DoveListFragment
+import com.gmax.kotlin_one.modules.dove.RingListFragment
 import kotlinx.android.synthetic.main.add_popup.view.*
 import kotlinx.android.synthetic.main.fragment_base_tab.*
 
 @Suppress("DEPRECATION")
-/**
- * Created by Administrator on 2017\8\1 0001.
- */
 class DoveFragment : BaseTabFragment() {
 
     private val TAG = "DoveFragment"
@@ -65,7 +65,9 @@ class DoveFragment : BaseTabFragment() {
     private fun showWindow(v:View) {
         if (mPopupWindow == null) {
             val layoutInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val view = layoutInflater.inflate(R.layout.add_popup, null)
+
+            val pNull : ViewGroup? = null
+            val view = layoutInflater.inflate(R.layout.add_popup, pNull)
 
             mPopupWindow = PopupWindow(view, resources.getDimension(R.dimen.DIP_150_DP).toInt(), resources.getDimension(R.dimen.DIP_180_DP).toInt())
 
@@ -115,11 +117,10 @@ class DoveFragment : BaseTabFragment() {
 
         activity.window.attributes = params
 
-
-        mPopupWindow!!.setOnDismissListener(PopupWindow.OnDismissListener {
+        mPopupWindow!!.setOnDismissListener{
             val params1 = activity.window.attributes
             params1.alpha = 1f
             activity.window.attributes = params1
-        })
+        }
     }
 }

@@ -6,5 +6,5 @@ import android.view.View
 /**
  * Created by Administrator on 2017\8\8 0008.
  */
-class BaseHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+open class BaseHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
 }

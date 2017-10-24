@@ -2,7 +2,7 @@ package com.gmax.kotlin_one.inject
 
 import com.gmax.kotlin_one.common.ApiCompoent
 import com.gmax.kotlin_one.common.ApiModule
-import com.gmax.kotlin_one.fragments.DoveListFragment
+import com.gmax.kotlin_one.modules.dove.DoveListFragment
 import com.gmax.kotlin_one.modules.dove.RingInfoActivity
 import com.gmax.kotlin_one.mvp.CodesContract
 import com.gmax.kotlin_one.mvp.DoveContract

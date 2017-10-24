@@ -12,9 +12,6 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 import javax.inject.Inject
 
-/**
- * Created by Administrator on 2017\8\2 0002.
- */
 class LoginPresenter
 @Inject constructor(private val mModel:LoginModel
                         , private val mView: LoginContract.View) : LoginContract.Presenter, BasePresenter(){
@@ -32,7 +29,6 @@ class LoginPresenter
                                 mView.setData(res.data)
                             }else{
                                 //  TODO 最好是给个错误提示
-
                                 //82:EF:89:3D:AB:B9:4E:CC:B8:73:86:FD:2E:35:12:7A:AD:85:3A:CA
                                 //55:FE:90:9C:FB:CF:C0:5C:8A:DD:33:AA:13:4E:01:F8:2F:C8:C5:BF
                             }

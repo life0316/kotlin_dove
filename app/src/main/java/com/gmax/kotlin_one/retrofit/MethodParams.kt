@@ -39,5 +39,14 @@ class MethodParams {
         val PARAMS_ON_TIME = "on_time"
         val PARAMS_OFF_TIME = "off_time"
 
+
+
+
+        val PARAMS_CP = "cp"
+        val PARAMS_PS = "ps"
+        val PARAMS_FRIEND_ID = "friendid"
+        val PARAMS_CIRCLE_ID = "circleid"
+        var PARAMS_CONTENT = "content"
+        var PARAMS_COMMENT_ID = "commentid"
     }
 }

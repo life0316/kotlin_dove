@@ -125,16 +125,12 @@ class RingInfoActivity : BaseBindingActivity<ActivityRingInfoBinding>(),DoveCont
         view.mate_rv.addItemDecoration(RecycleviewDaviding(this, R.drawable.daviding))
 
         mateAdapter = object : BaseComAdapter<InnerDoveData>(){
-            override fun getLayout(): Int {
+            override fun getLayout(): Int = R.layout.item_rv_mate_pigeon
 
-                return R.layout.item_rv_mate_pigeon
-            }
             @SuppressLint("SetTextI18n")
             override fun bindHolder(holder: BaseHolder?, position: Int, data: InnerDoveData) {
                 holder!!.itemView.item_mate_tv.text = "环号: ${data.foot_ring}"
-
                 holder.itemView.setOnClickListener {
-
                 }
             }
         }
@@ -165,16 +161,13 @@ class RingInfoActivity : BaseBindingActivity<ActivityRingInfoBinding>(),DoveCont
     }
 
     internal fun getParaMap(): Map<String, String> {
-
         val map = HashMap<String, String>()
-
         map.put(MethodParams.PARAMS_METHOD, getMethod())
         map.put(MethodParams.PARAMS_SIGN, getSign())
         map.put(MethodParams.PARAMS_TIME, getTime())
         map.put(MethodParams.PARAMS_VERSION, getVersion())
         map.put(MethodParams.PARAMS_USER_OBJ, getUserObjId())
         map.put(MethodParams.PARAMS_TOKEN, getToken())
-
         when (methodType) {
             MethodType.METHOD_TYPE_DOVE_SEARCH -> map.put(MethodParams.PARAMS_PLAYER_ID, getUserObjId())
             MethodType.METHOD_TYPE_RING_UPDATE -> {
@@ -199,7 +192,6 @@ class RingInfoActivity : BaseBindingActivity<ActivityRingInfoBinding>(),DoveCont
             showToast("没有可匹配的信鸽")
             return
         }
-
         dialog!!.show()
         mateAdapter!!.updateDatas(doveData as MutableList<InnerDoveData>)
 

@@ -1,4 +1,4 @@
-package com.gmax.kotlin_one.fragments
+package com.gmax.kotlin_one.modules.dove
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,7 +18,6 @@ import com.gmax.kotlin_one.common.CommentListener
 import com.gmax.kotlin_one.databinding.SmartRefrashBinding
 import com.gmax.kotlin_one.inject.DaggerRingComponent
 import com.gmax.kotlin_one.inject.RingModule
-import com.gmax.kotlin_one.modules.dove.RingInfoActivity
 import com.gmax.kotlin_one.mvp.*
 import com.gmax.kotlin_one.retrofit.MethodConstant
 import com.gmax.kotlin_one.retrofit.MethodParams
@@ -26,7 +25,6 @@ import com.gmax.kotlin_one.retrofit.MethodType
 import com.gmax.kotlin_one.utils.RxBus
 import com.gmax.kotlin_one.utils.SpUtils
 import com.gmax.kotlin_one.widget.CustomDialog
-import kotlinx.android.synthetic.main.fragment_base_tab.*
 import kotlinx.android.synthetic.main.smart_refrash.*
 import rx.Observable
 import java.util.ArrayList
@@ -58,6 +56,13 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
         return SmartRefrashBinding.inflate(inflater,container,false)
     }
 
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if (!userVisibleHint) {
+            RxBus.getInstance().post(Constant.MAIN_EXIT,Constant.RING)
+        }
+    }
+
     override fun initView() {
         mHandler = Handler()
 
@@ -68,11 +73,8 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
                 .build().inject(this)
 
         swiprv.layoutManager = LinearLayoutManager(activity) as RecyclerView.LayoutManager?
-
         swiprv.adapter = mRingAdapter
-
         show_add_tv1.text = getString(R.string.need_add_ring)
-
         refreshLayout.isEnableLoadmore = false
         refreshLayout.setOnRefreshListener {
 
@@ -80,7 +82,6 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
 //                mRingPresenter.getDatas()
 //                setRefrash(false)
             } else {
-
                 methodType = MethodType.METHOD_TYPE_RING_SEARCH
                 mRingPresenter.getData(getParaMap(), methodType)
             }
@@ -93,12 +94,9 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
                     mRingAdapter.notifyDataSetChanged()
                 }
             } else {
-
                 if (countTemp > 0 && countTemp < ringBeans.size) {
-
                 } else {
                     val m = mRingAdapter.map
-
                     for (i in 0..m.size - 1) {
                         m.put(i, false)
                         mRingAdapter.notifyDataSetChanged()
@@ -126,7 +124,7 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
                     intent.putExtra(RingInfoActivity.RING_BEAN, ringBean)
                     intent.putExtra("matelist_size", mateList!!.size)
                     startActivity(intent)
-                    mRxbus.post("cancle",false)
+                    mRxbus.post(Constant.CANCLE,false)
                 } else {
                     mRingAdapter.setSelectItem(position)
                 }
@@ -145,8 +143,8 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
                     refreshLayout.isEnableRefresh = false
                     mRingAdapter.setLongClickTag(true)
                     SpUtils.putBoolean(activity,Constant.MAIN_EXIT,false)
-                    SpUtils.putString(activity,Constant.OTHER_NOT_EXIT,"ring")
-                    mRxbus.post("cancle",true)
+                    SpUtils.putString(activity,Constant.OTHER_NOT_EXIT,Constant.RING)
+                    mRxbus.post(Constant.CANCLE,true)
                 }
                 return true
             }
@@ -168,26 +166,20 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
                 dialog!!.show()
                 dialog!!.setClickListenerInterface(object : CustomDialog.ClickListenerInterface{
                     override fun doConfirm() {
-
                         if (!activity.isNetworkConnected()) {
-
                             activity.showToast(getString(R.string.net_conn_2))
                             return
                         }
-
                         for (i in ringTemps.indices) {
-
                             if ("" != ringTemps[i].doveid && "-1" != ringTemps[i].doveid) {
                                 activity.showToast(getString(R.string.delete_ringid_no))
                                 return
                             }
                         }
-
                         methodType = MethodType.METHOD_TYPE_RING_DELETE
                         mCodePresenter.getData(getParaMap(),methodType)
                         dialog!!.dismiss()
                     }
-
                     override fun doCancel() {
                         dialog!!.dismiss()
                     }
@@ -197,12 +189,12 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
             }
         }
 
-        exitOb = mRxbus.register("exit",String::class.java)
+        exitOb = mRxbus.register(Constant.MAIN_EXIT,String::class.java)
 
         exitOb!!.subscribe({
             exit ->
             Log.e("exit","dove------1")
-            if (exit == "ring"){
+            if (exit == Constant.RING){
                 Log.e("exit","dove----2")
                 myring_select.visibility = View.GONE
                 myring_select_cb.isChecked = false
@@ -212,7 +204,7 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
                 this.longClickTag1 = false
                 SpUtils.putBoolean(activity, Constant.MAIN_EXIT,true)
                 SpUtils.putString(activity,Constant.OTHER_NOT_EXIT,"")
-                mRxbus.post("cancle",false)
+                mRxbus.post(Constant.CANCLE,false)
             }
         })
     }
@@ -276,7 +268,7 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
         myring_select_cb.isChecked = false
         mRingAdapter.isshowBox = false
         mRingAdapter.setLongClickTag(false)
-        mRxbus.post("cancle",false)
+        mRxbus.post(Constant.CANCLE,false)
         this.longClickTag1 = false
 
         if (ringData.isNotEmpty()) {
@@ -292,13 +284,11 @@ class RingListFragment : BaseBindingFragment<SmartRefrashBinding>(), RingContrac
             mRingAdapter.addData(ringData)
             refreshLayout.isEnableRefresh = true
             mypigeon_show_add.visibility = View.GONE
-//            mRxBus.post("cancle", 200)
 
         } else {
             refreshLayout.isEnableRefresh = false
             mRingAdapter.addData(ringBeans)
             mypigeon_show_add.visibility = View.VISIBLE
-//            mRxBus.post("cancle", 200)
         }
     }
 }

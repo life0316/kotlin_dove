@@ -111,6 +111,12 @@
         <activity android:name=".modules.dove.DoveInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".modules.dove.RingInfoActivity" android:screenOrientation="portrait"/>
         <activity android:name=".modules.home.PersonalActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".modules.circle.ReleaseCircleActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ImageActivity" android:screenOrientation="portrait"/>
+
+
+        <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
     </application>
 

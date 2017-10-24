@@ -5,7 +5,7 @@ import android.view.View
 
 interface CommentListener {
 
-    interface MyItemClickListener : MyItemCheckListener {
+    interface MyItemClickListener {
          fun onItemClick(view: View, position: Int)
     }
     interface MyItemLongClickListener {

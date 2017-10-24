@@ -27,7 +27,6 @@ import com.gmax.kotlin_one.retrofit.MethodConstant
 import com.gmax.kotlin_one.retrofit.MethodParams
 import com.gmax.kotlin_one.retrofit.MethodType
 import com.gmax.kotlin_one.utils.SpUtils
-import kotlinx.android.synthetic.main.activity_personal.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import java.io.ByteArrayInputStream
 import java.util.HashMap

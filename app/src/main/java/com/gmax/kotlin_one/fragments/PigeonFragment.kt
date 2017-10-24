@@ -7,9 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 
-/**
- * Created by Administrator on 2017\8\1 0001.
- */
 class PigeonFragment : Fragment(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,19 +16,19 @@ class PigeonFragment : Fragment(){
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         arguments
-        var view = TextView(activity)
+        val view = TextView(activity)
         view.text = arguments.getString("ARGS")
 
         return view
     }
 
     companion object{
-        fun newInstance(content: String): PigeonFragment {
-            val args = Bundle()
-            args.putString("ARGS", content)
-            val fragment = PigeonFragment()
-            fragment.arguments = args
-            return fragment
-        }
+//        fun newInstance(content: String): PigeonFragment {
+//            val args = Bundle()
+//            args.putString("ARGS", content)
+//            val fragment = PigeonFragment()
+//            fragment.arguments = args
+//            return fragment
+//        }
     }
 }
