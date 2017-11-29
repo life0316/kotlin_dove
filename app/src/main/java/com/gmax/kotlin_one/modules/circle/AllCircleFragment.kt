@@ -333,7 +333,7 @@ class AllCircleFragment : BaseBindingFragment<FragmentMySmartBinding>(), CircleC
             circleid = data.circleid
             methodType = MethodType.METHOD_TYPE_ADD_ATTENTION
             friendId = data.userid
-            mCodePresenter.getData(getParaMap(),methodType)
+            mCodePresenter.getData(getParaMap(), methodType)
         }
         holder.itemView.friend_dislike.setOnClickListener{
             currentPosition = position
@@ -447,12 +447,9 @@ class AllCircleFragment : BaseBindingFragment<FragmentMySmartBinding>(), CircleC
                 map.put(MethodParams.PARAMS_CONTENT, commentContent!!)
             }
         }
-
         Log.e("faaafee", map.toString())
-
         return map
     }
-
     private fun showDownDialog() {
         val mDialog = Dialog(activity, R.style.DialogTheme)
         mDialog.setCancelable(false)

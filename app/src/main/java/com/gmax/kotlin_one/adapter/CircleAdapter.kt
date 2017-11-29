@@ -39,20 +39,12 @@ class CircleAdapter<T>(private val context: Context    // 上下文Context
 
     // 正常item的ViewHolder，用以缓存findView操作
     inner class MyRefrashHolder(itemView: View) : BaseHolder(itemView){
-
         init {
         }
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyRefrashHolder {
-
         val view = LayoutInflater.from(context).inflate(if (layoutRes == 0) R.layout.item_friend_circle else layoutRes, null)
-
-//        if (holdType == 1) {
-//            return CommentHolder(context, view, myItemClickListener)
-//        } else {
             return MyRefrashHolder(view)
-//        }
     }
 
     internal var layoutRes = 0

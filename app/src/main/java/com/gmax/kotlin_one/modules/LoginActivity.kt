@@ -178,7 +178,6 @@ class LoginActivity : BaseLoginView<ActivityLoginBinding>(){
                 map.put(MethodParams.PARAMS_USER_OBJ, getUserObjId())
             }
         }
-        Log.e("fafaf",map.toString() + "--------map")
         return map
     }
 }
